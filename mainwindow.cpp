@@ -14,8 +14,15 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_SocketData_textChanged()
+void MainWindow::on_MainWindow_ConnectButton_clicked()
 {
+    _socket_connection = std::make_shared<QTcpSocket>(this);
 
+    _socket_connection->connectToHost("google.com", 80);
+
+    if (_socket_connection->waitForConnected(5000))
+        qDebug() << "Connected";
+    else
+        qDebug() << "Not connected";
 }
 

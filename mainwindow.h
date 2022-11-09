@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTcpSocket>
+#include <memory>
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,9 +19,12 @@ public:
     ~MainWindow();
 
 private slots:
-        void on_SocketData_textChanged();
+
+    void on_MainWindow_ConnectButton_clicked();
 
 private:
     Ui::MainWindow *ui;
+
+    std::shared_ptr<QTcpSocket> _socket_connection;
 };
 #endif // MAINWINDOW_H

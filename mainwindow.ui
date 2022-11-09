@@ -38,9 +38,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="MainWindow_ConnectButton">
          <property name="text">
-          <string>TmpButton1</string>
+          <string>Connect</string>
          </property>
         </widget>
        </item>
