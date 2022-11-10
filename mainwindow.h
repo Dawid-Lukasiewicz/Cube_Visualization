@@ -27,6 +27,8 @@ private slots:
 
     void on_MainWindow_ConnectButton_clicked();
 
+    void on_MainWindow_DisconnectButton_clicked();
+
 private:
     Ui::MainWindow *_ui;
 

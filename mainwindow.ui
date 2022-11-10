@@ -58,9 +58,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="MainWindow_DisconnectButton">
          <property name="text">
-          <string>TmpButton2</string>
+          <string>Disconnect</string>
          </property>
         </widget>
        </item>
