@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QTcpSocket>
-#include <memory>
 #include <QDebug>
 
 QT_BEGIN_NAMESPACE
@@ -18,13 +17,19 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots:
+    void connected();
+    void disconnected();
+    void readyRead();
+    void bytesWritten(const qint64 &bytes);
+
 private slots:
 
     void on_MainWindow_ConnectButton_clicked();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow *_ui;
 
-    std::shared_ptr<QTcpSocket> _socket_connection;
+    QTcpSocket *_socket;
 };
 #endif // MAINWINDOW_H
