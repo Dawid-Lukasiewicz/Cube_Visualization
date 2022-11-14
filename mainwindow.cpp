@@ -25,6 +25,13 @@ void MainWindow::on_MainWindow_ConnectButton_clicked()
 
     _socket->connectToHost("192.168.100.13", 1234);
     qDebug() << "Connecting...";
+
+    if (_socket->state() != QAbstractSocket::ConnectedState
+            && !_socket->waitForConnected(5000))
+    {
+        qDebug() << "Error while connecting: " << _socket->error() << "\n";
+    }
+
 }
 
 void MainWindow::connected()
@@ -43,7 +50,7 @@ void MainWindow::readyRead()
     qDebug() << "Reading: " << _socket->bytesAvailable(); // Print amount of data to debug console
 //    qDebug() << _socket->readAll(); // Actual data print on SocketData Box [TO DO]
     _ui->SocketData->append(_socket->readAll());
-
+    _socket->write("S\r\n");
 }
 
 void MainWindow::bytesWritten(const qint64 &bytes)
@@ -55,7 +62,12 @@ void MainWindow::bytesWritten(const qint64 &bytes)
 
 void MainWindow::on_MainWindow_DisconnectButton_clicked()
 {
-    _socket->write("disconnect\r\n");
-    _socket->disconnect();
+    qDebug() << "Disconnecting...\n";
+    _socket->disconnectFromHost();
+    if (_socket->state() != QAbstractSocket::UnconnectedState
+            && !_socket->waitForDisconnected())
+    {
+        qDebug() << "Error while disconnecting: " << _socket->error() << "\n";
+    }
 }
 
