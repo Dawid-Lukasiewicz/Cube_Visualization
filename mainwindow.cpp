@@ -49,8 +49,8 @@ void MainWindow::readyRead()
 {
     qDebug() << "Reading: " << _socket->bytesAvailable(); // Print amount of data to debug console
 //    qDebug() << _socket->readAll(); // Actual data print on SocketData Box [TO DO]
-    _ui->SocketData->append(_socket->readAll());
-    _socket->write("S\r\n");
+//    _ui->SocketData->append(_socket->readAll());
+    _socket->write("C\r\n");
 }
 
 void MainWindow::bytesWritten(const qint64 &bytes)

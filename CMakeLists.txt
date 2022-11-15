@@ -11,8 +11,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools OpenGL)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools Network OpenGL)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets LinguistTools OpenGLWidgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets LinguistTools Network OpenGLWidgets)
 
 set(TS_FILES Cube_Visualization_en_150.ts)
 
@@ -20,7 +20,9 @@ set(PROJECT_SOURCES
         main.cpp
         mainwindow.cpp
         mainwindow.h
-        mainwindow.ui
+		glwidget.h
+		glwidget.cpp
+		mainwindow.ui
         ${TS_FILES}
 )
 
@@ -54,7 +56,7 @@ endif()
 target_link_libraries(Cube_Visualization PRIVATE
 	Qt${QT_VERSION_MAJOR}::Widgets
 	Qt${QT_VERSION_MAJOR}::Network
-	Qt${QT_VERSION_MAJOR}::OpenGL)
+	Qt${QT_VERSION_MAJOR}::OpenGLWidgets)
 
 set_target_properties(Cube_Visualization PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
