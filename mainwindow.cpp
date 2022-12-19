@@ -23,6 +23,8 @@ void MainWindow::on_MainWindow_ConnectButton_clicked()
     connect( _socket, SIGNAL(readyRead()), this, SLOT(readyRead()) );
     connect( _socket, SIGNAL(bytesWritten(qint64)), this, SLOT(bytesWritten(qint64)) );
 
+    connect( _socket, SIGNAL(hostFound()), this, SLOT(sendLedData()) );
+
     _socket->connectToHost("192.168.100.13", 1234);
     qDebug() << "Connecting...";
 
@@ -37,6 +39,7 @@ void MainWindow::on_MainWindow_ConnectButton_clicked()
 void MainWindow::connected()
 {
     qDebug() << "Connected";
+    _socket->write("X2:Y2:Z2:");
 }
 
 void MainWindow::disconnected()
@@ -48,9 +51,12 @@ void MainWindow::disconnected()
 void MainWindow::readyRead()
 {
     qDebug() << "Reading: " << _socket->bytesAvailable(); // Print amount of data to debug console
-//    qDebug() << _socket->readAll(); // Actual data print on SocketData Box [TO DO]
-    _ui->SocketData->append(_socket->readAll());
-    _socket->write("S\r\n");
+    qDebug() << _socket->readAll(); // Actual data print on SocketData Box [TO DO]
+    quint32 valueX = QRandomGenerator::global()->generate()%5;
+    quint32 valueY = QRandomGenerator::global()->generate()%5;
+    quint32 valueZ = QRandomGenerator::global()->generate()%5;
+    QString data_output = "X" + QString::number(valueX) + ":Y" + QString::number(valueY) + ":Z" + QString::number(valueZ) + ":";
+    _socket->write(data_output.toStdString().c_str());
 }
 
 void MainWindow::bytesWritten(const qint64 &bytes)
